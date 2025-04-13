@@ -20,7 +20,7 @@ def danelfin_environment() -> tuple[Optional[str], Optional[str], Optional[str]]
 
     danelfin_api_key = os.getenv("DANELFIN_API_KEY")
     danelfin_api_url = os.getenv("DANELFIN_API_URL")
-    danelfin_api_ranking_url = os.getenv("DANELFIN_RANKING_URL")  # Fixed typo in variable name
+    danelfin_api_ranking_url = os.getenv("DENELFIN_API_RANKING_URL")  # Fixed typo in variable name
 
     return danelfin_api_key, danelfin_api_url, danelfin_api_ranking_url
 
@@ -28,19 +28,22 @@ def danelfin_environment() -> tuple[Optional[str], Optional[str], Optional[str]]
 def main():
     """Main function to run the Danelfin API client."""
     # get date
-    get_date()
+    current_date = get_date()
     # Get environment variables
     danelfin_api_key, danelfin_api_url, danelfin_api_ranking_url = danelfin_environment()
 
     # Initialize the API client
     danelfin_api_client = DanelfinAPIClient(
+        date=current_date,
         api_key=danelfin_api_key,
         api_url=danelfin_api_url,
         ranking_url=danelfin_api_ranking_url
     )
 
     # print sectors
-    danelfin_api_client.get_all_sectors()
+
+    top5_sectors = danelfin_api_client.get_top5_sectors()
+
 
 
 
